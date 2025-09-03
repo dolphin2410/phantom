@@ -1,71 +1,42 @@
-import { useEffect } from "react";
 import InformationCard from "../ui/InformationCard";
 import SettingsCard, { Configuration } from "../ui/SettingsCard";
+import Dropdown from "../ui/Dropdown";
 
 function SettingsApplication() {
-        useEffect(() => {
-        const dropdown = document.querySelector(".card-dropdown")!!;
-        const toggle = dropdown.querySelector(".card-dropdown-toggle")!!;
-        const menu = dropdown.querySelector(".card-dropdown-menu")!!;
-
-        toggle.addEventListener("click", () => {
-            dropdown.classList.toggle("open");
-        });
-
-        menu.querySelectorAll("li").forEach(item => {
-            item.addEventListener("click", () => {
-                toggle.textContent = item.textContent;
-                dropdown.classList.remove("open");
-            });
-        });
-
-        document.addEventListener("click", (e) => {
-            if (!dropdown.contains(e.target as HTMLElement)) {
-                dropdown.classList.remove("open");
-            }
-        });
-    }, [])
     const history_configuration: Configuration[] = [
         {
-            key: <>A</>,
-            value: <>Apple</>
+            key: <>A13BEF</>,
+            value: <>2025-08-31</>
         },
         {
-            key: <>B</>,
-            value: null
+            key: <>2BF331</>,
+            value: <>2025-08-23</>
         },
         {
-            key: <>C</>,
-            value: <>Chicken</>
+            key: <>32CD3E</>,
+            value: <>2025-06-21</>
         },
+    ]
+
+    const app_dropdown_options = [
+        'google.com',
+        'instagram.com',
+        'github.com',
+        'facebook.com'
+    ]
+
+    const hash_dropdown_options = [
+        'A13BEF',
+        '2BF331',
+        '32CD3E'
     ]
 
     const password_recovery_config: Configuration[] = [
         {
             key: (
                 <div className="card-group">
-                    <div className="card-dropdown" id="app-dropdown">
-                        <div className="card-dropdown-toggle">Select Application</div>
-                        <ul className="card-dropdown-menu">
-                            <li>Option 1</li>
-                            <li>Option 2</li>
-                            <li>Option 3</li>
-                            <li>Option 4</li>
-                            <li>Option 5</li>
-                            <li>Option 6</li>
-                        </ul>
-                    </div>
-                    <div className="card-dropdown" id="hash-dropdown">
-                        <div className="card-dropdown-toggle">Select Hash</div>
-                        <ul className="card-dropdown-menu">
-                            <li>Option 1</li>
-                            <li>Option 2</li>
-                            <li>Option 3</li>
-                            <li>Option 4</li>
-                            <li>Option 5</li>
-                            <li>Option 6</li>
-                        </ul>
-                    </div>
+                    <Dropdown dropdown_prompt="Select App" dropdown_items={app_dropdown_options} />
+                    <Dropdown dropdown_prompt="Select Hash" dropdown_items={hash_dropdown_options} />
                 </div>
             ),
             value: null
@@ -96,6 +67,7 @@ function SettingsApplication() {
                 <SettingsCard
                     configuration_name="History"
                     configuration_data={history_configuration}
+                    trimmed_config
                 />
 
                 <InformationCard

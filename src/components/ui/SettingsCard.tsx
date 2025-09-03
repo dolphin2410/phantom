@@ -8,16 +8,17 @@ export type Configuration = {
 
 type SettingsCardProps = {
     configuration_name: string,
-    configuration_data: Configuration[]
+    configuration_data: Configuration[],
+    trimmed_config?: boolean
 }
 
-function SettingsCard({ configuration_name, configuration_data } : SettingsCardProps) {
+function SettingsCard({ configuration_name, configuration_data, trimmed_config } : SettingsCardProps) {
     return (
         <BaseCard 
             data-settings-card
             style_config={{ 
                 hidden_style: {
-                    height: `${60 * configuration_data.length + 60}px`
+                    height: trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`
                 },
                 base_style: {
 

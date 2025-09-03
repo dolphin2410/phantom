@@ -34,6 +34,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column: 2 / span 2;
+    color: rgb(82, 82, 82) !important;
 }
 
 .card[data-settings-card] > .card-hidden > .card-settings-key[data-expand] {
