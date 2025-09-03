@@ -1,0 +1,55 @@
+.settings-container {
+    grid-row: 2;
+    width: 80%;
+    justify-self: center;
+}
+
+.settings-title {
+    font-size: 1.2rem;
+}
+
+.card[data-information-card] {
+    grid-template-columns: 10px 1fr 10px;
+}
+
+.card[data-information-card] > .card-chevron {
+    display: none;
+}
+
+.card[data-information-card] > .card-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card[data-settings-card] {
+    grid-template-columns: 10px 1fr 50px 10px;
+}
+
+.card[data-settings-card].card-expanded {
+    grid-template-columns: 10px 1fr 50px 10px !important;
+    grid-template-rows: 25px 25px 1fr !important;
+}
+
+.card[data-settings-card].card-expanded > .card-hidden {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column: 2 / span 2;
+}
+
+.card[data-settings-card] > .card-hidden > .card-settings-key[data-expand] {
+    grid-column: 1 / span 2;
+}
+
+.card[data-settings-card] > .card-hidden > .card-settings-key {
+    display: flex;
+    justify-content: left;
+}
+
+.card[data-settings-card] > .card-hidden > .card-settings-value {
+    display: flex;
+    justify-content: right;
+}
+
+.card-settings-key > *, .card-settings-value {
+    width: 100%;
+}

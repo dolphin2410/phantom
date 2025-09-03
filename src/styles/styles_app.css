@@ -1,0 +1,25 @@
+.app-searchbar-container {
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    justify-self: center;
+}
+
+.app-searchbar {
+    border: none;
+    box-shadow: 0 1px 3px 0 #00000013;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+.app-recent {
+    width: 80%;
+    justify-self: center;
+}
+
+.app-recent-title {
+    font-size: 1.2rem;
+}

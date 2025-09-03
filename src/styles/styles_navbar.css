@@ -1,0 +1,87 @@
+.navbar {
+    grid-column: 1;
+    background-color: #101828;
+    display: grid;
+    grid-template-rows: 3fr 4fr 60px 1fr;
+    padding: 20px 60px;
+    height: calc(100vh - 40px);
+    position: fixed;
+    width: calc(250px - 120px) !important;
+    left: 0;
+}
+
+.navbar-trigger {
+    display: flex;
+    position: absolute;
+    left: 250px;
+    width: 50px;
+    height: 30px;
+    border-radius: 0 0 10px 0;
+    background-color: #1f2739;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-items: center;
+}
+
+.navbar-trigger:hover {
+    cursor: pointer;
+}
+
+.navbar-burger-line {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: #f3f4f6;
+    border-radius: 5px;
+}
+
+
+.navbar-title {
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-title:hover {
+    cursor: pointer;
+}
+
+.navbar-title-illusion {
+    color: rgb(255, 255, 255);
+    font-size: 1.3rem;
+    text-align: right;
+}
+
+.navbar-title-phantom {
+    color: rgb(191, 191, 191);
+}
+
+.navbar-menu {
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-menu-item {
+    color: rgb(188, 188, 188);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.navbar-menu-item:hover {
+    cursor: pointer;
+    background-color: #1f2739;
+}
+
+.navbar-activated {
+    display: grid !important;
+}
+
+.navbar-activated > .navbar-trigger {
+    left: 250px;
+}
