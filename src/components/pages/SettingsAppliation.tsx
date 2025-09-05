@@ -1,35 +1,32 @@
 import InformationCard from "../ui/InformationCard";
 import SettingsCard, { Configuration } from "../ui/SettingsCard";
 import Dropdown from "../ui/Dropdown";
+import { get_hash_history } from "../../api/hash_history.ts"
+import { get_applications } from "../../api/appliction.ts";
 
 function SettingsApplication() {
-    const history_configuration: Configuration[] = [
-        {
-            key: <>A13BEF</>,
-            value: <>2025-08-31</>
-        },
-        {
-            key: <>2BF331</>,
-            value: <>2025-08-23</>
-        },
-        {
-            key: <>32CD3E</>,
-            value: <>2025-06-21</>
-        },
-    ]
+    const hash_history = get_hash_history()
 
-    const app_dropdown_options = [
-        'google.com',
-        'instagram.com',
-        'github.com',
-        'facebook.com'
-    ]
+    let history_configuration: Configuration[] = []
 
-    const hash_dropdown_options = [
-        'A13BEF',
-        '2BF331',
-        '32CD3E'
-    ]
+    for (const hash_history_item of hash_history) {
+        history_configuration.push({
+            key: <>{ hash_history_item.hash }</>,
+            value: <>{ hash_history_item.created_date }</>
+        })
+    }   
+
+    const app_list = get_applications()
+
+    const app_dropdown_options: string[] = []
+    for (const app of app_list) {
+        app_dropdown_options.push(app.service_name)
+    }
+
+    let hash_dropdown_options: string[] = []
+    for (const hash of hash_history) {
+        hash_dropdown_options.push(hash.hash)
+    }
 
     const password_recovery_config: Configuration[] = [
         {
@@ -61,7 +58,7 @@ function SettingsApplication() {
                         <>Last Hash Update</>
                     )}
                     information_value={(
-                        <>2025-09-02</>
+                        <>{hash_history[hash_history.length - 1].created_date}</>
                     )} />
 
                 <SettingsCard

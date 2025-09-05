@@ -1,0 +1,29 @@
+import { HashHistory } from "../types/phantom_types"
+import { generate_random_hash } from "../util/math"
+import { load_database } from "./database"
+
+export function create_hash_history(): HashHistory | null {
+    const new_hash = generate_random_hash(10)
+    const curr_time = (new Date()).toISOString().split('T')[0]
+
+    const new_hash_history: HashHistory = {
+        hash: new_hash,
+        created_date: curr_time
+    }
+
+
+    let db = load_database()
+
+    if (db.list_hash_history.filter(e => e.created_date == curr_time)) {
+        db.list_hash_history.push(new_hash_history)
+        return new_hash_history
+    } else {
+        return null
+    }
+}
+
+export function get_hash_history(): HashHistory[] {
+
+    // TODO: load this from user management system
+    return load_database().list_hash_history
+}
