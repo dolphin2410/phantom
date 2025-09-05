@@ -1,57 +1,70 @@
-import { ReactElement } from "react"
+import { ReactElement, useEffect, useRef } from "react"
 import chevron_icon from "../../assets/up.svg"
-
-type StyleConfiguration = {
-    base_style: object,
-    hidden_style: object
-}
 
 type BaseCardProps = {
     img?: string
     content: ReactElement,
     hidden_content?: ReactElement,
-    style_config?: StyleConfiguration,
+    style_config?: object,
     [props: string]: any
 }
 
-function BaseCard({ img, content, hidden_content, style_config, ...props } : BaseCardProps) {
-    if (!style_config) {
-        style_config = { base_style: {}, hidden_style: {} }
+function BaseCard({ img, content, hidden_content = <></>, style_config = {  }, ...props } : BaseCardProps) {
+    const card_ref = useRef<HTMLDivElement | null>(null)
+    const old_style = useRef<{ [key: string]: string }>({})
+
+    const regenerate_card_style = (card_element: HTMLElement) => {
+        if (card_element.classList.contains("card-expanded")) {
+            Object.entries(style_config).forEach(([key, value]) => {
+                card_element.style.setProperty(key, value, "important")
+            })
+        } else {
+            Object.entries(style_config).forEach(([key,]) => {
+                card_element.style.setProperty(key, old_style.current[key], "important")
+            })  
+        }
     }
 
-    if (!hidden_content) {
-        hidden_content = <></>
-    }
+    useEffect(() => {
+        const card_element = card_ref.current as (HTMLElement | null)
 
-    const is_valid_target = (classList: DOMTokenList) => {
-        return classList.contains('card') || classList.contains('card-chevron') || classList.contains('card-content') || classList.contains('card-interaction')
+        if (card_element) {
+            Object.entries(style_config).forEach(([key,]) => {
+                old_style.current[key] = card_element.style.getPropertyValue(key)
+            })
+        }
+    }, [])
+
+    useEffect(() => {
+        const card_element = card_ref.current as (HTMLElement | null)
+
+        if (card_element) {
+            regenerate_card_style(card_element)
+        }
+    }, [hidden_content])
+
+    const is_valid_target = (target: HTMLElement, current_target: HTMLElement) => {
+        const valid_target_click =      target.classList.contains('card') || 
+                                        target.classList.contains('card-chevron') || 
+                                        target.classList.contains('card-content') || 
+                                        target.classList.contains('card-interaction')
+        const is_non_clickable_card =   current_target.classList.contains("card-noexpand") ||
+                                        current_target.hasAttribute("data-information-card")
+        return valid_target_click && !is_non_clickable_card
     }
 
     const card_click_handler = (e: React.MouseEvent) => {
         const target = e.target!! as HTMLElement
         const current_target = e.currentTarget!! as HTMLElement
-        if (is_valid_target(target.classList) && !current_target.classList.contains('card-noexpand') && !current_target.hasAttribute("data-information-card")) {
+
+        if (is_valid_target(target, current_target)) {
             current_target.classList.toggle("card-expanded")
-            if (Object.values(style_config.hidden_style).length != 0) {
-            let old_hidden_style: { [key: string]: string } = {}
-                Object.entries(style_config.hidden_style).forEach(([key, value]) => {
-                    old_hidden_style[key] = current_target.style.getPropertyValue(key)
-                    current_target.style.setProperty(key, value, "important")
-                })
-                style_config.hidden_style = old_hidden_style
-            }
+            regenerate_card_style(current_target)
         }
     }
 
-    const card_load_handler = (e: React.SyntheticEvent) => {
-        const target = e.target as HTMLElement
-        Object.entries(style_config.base_style).forEach(([key, value]) => {
-            target.style.setProperty(key, value)
-        })
-    }
-
     return (
-        <div className="card" onLoad={card_load_handler} onClick={card_click_handler} {...props}>
+        <div className="card" ref={card_ref} onClick={card_click_handler} {...props}>
             { img ? <img className="card-img" src={img} /> : <></> }
             <img className="card-chevron" src={chevron_icon} />
             <span className="card-content">{content}</span>

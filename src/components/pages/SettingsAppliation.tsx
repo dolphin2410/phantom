@@ -1,31 +1,28 @@
 import InformationCard from "../ui/InformationCard";
-import SettingsCard, { Configuration } from "../ui/SettingsCard";
+import SettingsCard, { Configuration, configuration_from_text } from "../ui/SettingsCard";
 import Dropdown from "../ui/Dropdown";
-import { get_hash_history } from "../../api/hash_history.ts"
+import { create_hash_history, get_hash_history } from "../../api/hash_history.ts"
 import { get_applications } from "../../api/appliction.ts";
+import { useState } from "react";
 
-function SettingsApplication() {
+function SettingsApplication() {    
     const hash_history = get_hash_history()
-
-    let history_configuration: Configuration[] = []
-
-    for (const hash_history_item of hash_history) {
-        history_configuration.push({
-            key: <>{ hash_history_item.hash }</>,
-            value: <>{ hash_history_item.created_date }</>
-        })
-    }   
+    const history_configuration = configuration_from_text(hash_history.map(e => [e.hash, e.created_date]))
 
     const app_list = get_applications()
+    const app_dropdown_options: string[] = app_list.map(e => e.service_name)
+    let hash_dropdown_options: string[] = hash_history.map(e => e.hash)
 
-    const app_dropdown_options: string[] = []
-    for (const app of app_list) {
-        app_dropdown_options.push(app.service_name)
-    }
+    const [last_hash_update, set_last_hash_update] = useState(hash_history[hash_history.length - 1].created_date)
 
-    let hash_dropdown_options: string[] = []
-    for (const hash of hash_history) {
-        hash_dropdown_options.push(hash.hash)
+    const revoke_hash = () => {
+        const new_hash = create_hash_history()
+
+        if (new_hash == null) {
+            alert("You can only revoke hash once a day. Try again tomorrow")
+        } else {
+            set_last_hash_update(hash_history[hash_history.length - 1].created_date)
+        }
     }
 
     const password_recovery_config: Configuration[] = [
@@ -58,7 +55,7 @@ function SettingsApplication() {
                         <>Last Hash Update</>
                     )}
                     information_value={(
-                        <>{hash_history[hash_history.length - 1].created_date}</>
+                        <>{last_hash_update}</>
                     )} />
 
                 <SettingsCard
@@ -72,7 +69,7 @@ function SettingsApplication() {
                         <>Revoke Current Hash</>
                     )}
                     information_value={(
-                        <><input type="button" value="Revoke" className="card-btn" /></>
+                        <><input type="button" value="Revoke" onClick={revoke_hash} className="card-btn" /></>
                     )}
                 />
 

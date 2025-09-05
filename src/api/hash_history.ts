@@ -11,14 +11,13 @@ export function create_hash_history(): HashHistory | null {
         created_date: curr_time
     }
 
-
     let db = load_database()
 
-    if (db.list_hash_history.filter(e => e.created_date == curr_time)) {
+    if (Object.values(db.list_hash_history.filter(e => e.created_date == curr_time)).length) {
+        return null
+    } else {
         db.list_hash_history.push(new_hash_history)
         return new_hash_history
-    } else {
-        return null
     }
 }
 

@@ -91,26 +91,6 @@
     cursor: pointer;
 }
 
-.card-select {
-    width: 250px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: #fff url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center;
-    background-size: 18px;
-    cursor: pointer;
-}
-
-.card-select:focus {
-    outline: none;
-    border-color: #666;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-}
-
 .card-group {
     display: flex;
     justify-content: space-between;

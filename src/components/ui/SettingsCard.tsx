@@ -6,6 +6,19 @@ export type Configuration = {
     value: ReactElement | null
 }
 
+export function configuration_from_text(text_config: [string, string][]): Configuration[] {
+    let config: Configuration[] = []
+
+    for (const [ _key, _value ] of text_config) {
+        config.push({
+            key: <>{ _key }</>,
+            value: <>{ _value }</>
+        })
+    }
+
+    return config
+} 
+
 type SettingsCardProps = {
     configuration_name: string,
     configuration_data: Configuration[],
@@ -17,12 +30,7 @@ function SettingsCard({ configuration_name, configuration_data, trimmed_config }
         <BaseCard 
             data-settings-card
             style_config={{ 
-                hidden_style: {
-                    height: trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`
-                },
-                base_style: {
-
-                }
+                height: trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`
              }}
             content={(
                 <>{configuration_name}</>

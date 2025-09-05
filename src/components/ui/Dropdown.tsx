@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
+import { run_if_exists } from "../../util/phantom_utils"
 
 type DropdownProps = {
     dropdown_prompt: string,
@@ -6,40 +7,40 @@ type DropdownProps = {
 }
 
 function Dropdown({ dropdown_prompt, dropdown_items }: DropdownProps) {
-    const [dropdown, setDropdown] = useState<HTMLElement | null>(null)
-    const dropdown_click_handler = (e: React.MouseEvent) => {
-        const _dropdown = (e.currentTarget as HTMLElement).parentElement!!
-        _dropdown.classList.toggle('open')
-        setDropdown(_dropdown)
+    const dropdown_ref = useRef<HTMLDivElement | null>(null)
+
+    const dropdown_click_handler = () => {
+        run_if_exists(dropdown_ref, dropdown_element => {
+            dropdown_element.classList.toggle('open')
+        })
+    }
+
+    const item_click_handler = (e: React.MouseEvent) => {
+        run_if_exists(dropdown_ref, dropdown_element=> {
+            const toggle = dropdown_element.querySelector(".dropdown-toggle")!!
+
+            toggle.textContent = e.currentTarget.textContent
+            dropdown_element.classList.remove("open")
+        })
     }
 
     useEffect(() => {
-        if (dropdown != null) {
-            const toggle = dropdown.querySelector(".dropdown-toggle")!!;
-            const menu = dropdown.querySelector(".dropdown-menu")!!;
-
-            menu.querySelectorAll("li").forEach(item => {
-                item.addEventListener("click", () => {
-                    toggle.textContent = item.textContent;
-                    dropdown.classList.remove("open");
-                });
-            });
-
+        run_if_exists(dropdown_ref, dropdown_element => {
             document.addEventListener("click", (e) => {
-                if (!dropdown.contains(e.target as HTMLElement)) {
-                    dropdown.classList.remove("open");
+                if (!dropdown_element.contains(e.target as HTMLElement)) {
+                    dropdown_element.classList.remove("open")
                 }
-            });
-        }
-    }, [dropdown])
+            })
+        })
+    }, [])
 
     return (
-        <div className="dropdown">
+        <div className="dropdown" ref={dropdown_ref}>
             <div className="dropdown-toggle" onClick={dropdown_click_handler}>{dropdown_prompt}</div>
             <ul className="dropdown-menu">
                 {
                     dropdown_items.map(e => {
-                        return <li>{e}</li>
+                        return <li onClick={item_click_handler}>{e}</li>
                     })
                 }
             </ul>

@@ -4,5 +4,6 @@ export type HashHistory = {
 }
 
 export type Application = {
-    service_name: string
+    service_name: string,
+    img: string
 }
