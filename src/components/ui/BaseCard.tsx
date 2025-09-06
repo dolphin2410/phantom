@@ -1,39 +1,32 @@
 import { ReactElement, useEffect, useRef } from "react"
 import chevron_icon from "../../assets/up.svg"
 
+type StyleConfigType = {
+    [key: string]: [string, string]
+}
+
 type BaseCardProps = {
     img?: string
     content: ReactElement,
     hidden_content?: ReactElement,
-    style_config?: object,
+    style_config?: StyleConfigType,
     [props: string]: any
 }
 
 function BaseCard({ img, content, hidden_content = <></>, style_config = {  }, ...props } : BaseCardProps) {
     const card_ref = useRef<HTMLDivElement | null>(null)
-    const old_style = useRef<{ [key: string]: string }>({})
 
     const regenerate_card_style = (card_element: HTMLElement) => {
         if (card_element.classList.contains("card-expanded")) {
             Object.entries(style_config).forEach(([key, value]) => {
-                card_element.style.setProperty(key, value, "important")
+                card_element.style.setProperty(key, value[0], "important")
             })
         } else {
-            Object.entries(style_config).forEach(([key,]) => {
-                card_element.style.setProperty(key, old_style.current[key], "important")
+            Object.entries(style_config).forEach(([key, value]) => {
+                card_element.style.setProperty(key, value[1], "important")
             })  
         }
     }
-
-    useEffect(() => {
-        const card_element = card_ref.current as (HTMLElement | null)
-
-        if (card_element) {
-            Object.entries(style_config).forEach(([key,]) => {
-                old_style.current[key] = card_element.style.getPropertyValue(key)
-            })
-        }
-    }, [])
 
     useEffect(() => {
         const card_element = card_ref.current as (HTMLElement | null)

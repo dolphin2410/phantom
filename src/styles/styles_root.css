@@ -56,13 +56,19 @@ input:focus {
     }
 }
 
+.ui-container {
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: 100px 20px 1fr;
+}
+
 .root-collapsed > .ui-container {
     grid-column: 1;
 }
 
 @media screen and (max-width: 800px) {
     #root {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 
     .navbar {
@@ -78,7 +84,7 @@ input:focus {
         min-width: 450px !important;
     }
 
-    .navbar-trigger {
+    /* .navbar-trigger {
         width: 30px !important;
         height: 18px !important;
     }
@@ -86,11 +92,5 @@ input:focus {
     .navbar-burger-line {
         width: 15px !important;
         height: 1.2px !important;
-    }
-}
-
-.ui-container {
-    grid-column: 2;
-    display: grid;
-    grid-template-rows: 100px 1fr;
+    } */
 }

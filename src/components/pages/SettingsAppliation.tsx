@@ -1,7 +1,7 @@
 import InformationCard from "../ui/InformationCard";
 import SettingsCard, { Configuration, configuration_from_text } from "../ui/SettingsCard";
 import Dropdown from "../ui/Dropdown";
-import { create_hash_history, get_hash_history } from "../../api/hash_history.ts"
+import { create_hash_history, get_hash_history, get_latest_hash } from "../../api/hash_history.ts"
 import { get_applications } from "../../api/appliction.ts";
 import { useState } from "react";
 
@@ -21,7 +21,7 @@ function SettingsApplication() {
         if (new_hash == null) {
             alert("You can only revoke hash once a day. Try again tomorrow")
         } else {
-            set_last_hash_update(hash_history[hash_history.length - 1].created_date)
+            set_last_hash_update(get_latest_hash().created_date)
         }
     }
 
@@ -48,6 +48,7 @@ function SettingsApplication() {
 
     return (
         <div className="settings ui-container">
+            <h1 className="settings-title-main">Settings</h1>
             <div className="settings-container">
                 <h1 className="settings-title">Profile</h1>
                 <InformationCard 

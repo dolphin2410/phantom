@@ -48,7 +48,7 @@
 
 .card-expanded {
     height: 120px !important;
-    grid-template-rows: 1fr 30px 4fr;
+    grid-template-rows: 10px 50px 4fr 10px;
 }
 
 .card-expanded.card-long {
@@ -83,8 +83,29 @@
     color: white;
     border-radius: 10px;
     padding: 10px;
-    width: calc((((100vw - 250px) * 0.8) - 100px) * 0.2);
-    min-width: 80px;
+    width: calc((((100vw - 250px) * 0.8) - 140px) * 0.2 - 20px);
+}
+
+@media screen and (max-width: 800px) {
+    .card-btn {
+        width: calc((((100vw) * 0.8) - 140px) * 0.2 - 20px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .card-hidden {
+        flex-direction: column;
+    }
+
+    .card-btn {
+        width: 100% !important;
+        display: block;
+    }
+
+    .card-input {
+        width: 100% !important;
+        display: block;
+    }
 }
 
 .card-btn:hover {
@@ -100,3 +121,4 @@
 .card-group > .dropdown {
     width: 45%;
 }
+

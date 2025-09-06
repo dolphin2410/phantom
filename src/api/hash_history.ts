@@ -1,3 +1,4 @@
+import { invoke } from "@tauri-apps/api/core"
 import { HashHistory } from "../types/phantom_types"
 import { generate_random_hash } from "../util/math"
 import { load_database } from "./database"
@@ -21,8 +22,20 @@ export function create_hash_history(): HashHistory | null {
     }
 }
 
-export function get_hash_history(): HashHistory[] {
+export async function mint_password(service_name: string, hash: string, raw_password: string): Promise<string> {
+    return await invoke<string>("mint_password", { 
+        serviceName: service_name,
+        hash,
+        rawPassword: raw_password    
+    });
+}
 
-    // TODO: load this from user management system
+export function get_hash_history(): HashHistory[] {
     return load_database().list_hash_history
+}
+
+export function get_latest_hash(): HashHistory {
+    const hash_history_list = get_hash_history()
+
+    return hash_history_list[hash_history_list.length - 1]
 }

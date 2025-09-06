@@ -30,7 +30,10 @@ function SettingsCard({ configuration_name, configuration_data, trimmed_config }
         <BaseCard 
             data-settings-card
             style_config={{ 
-                height: trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`
+                height: [
+                    trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`,
+                    "70px"
+                ]
              }}
             content={(
                 <>{configuration_name}</>

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { get_applications } from "../../api/appliction";
 import ServiceCard from "../ui/ServiceCard";
+import { element_list_placeholder } from "../../util/phantom_utils";
+import InformationCard from "../ui/InformationCard";
 
 function MainApplication() {
     const [text_content, set_text_content] = useState("")
@@ -16,13 +18,19 @@ function MainApplication() {
                 <input type="text" onChange={input_change_handler} className="app-searchbar" placeholder="Search" />
             </div>
             <div className="app-recent">
-                <h1 className="app-recent-title">Query...</h1>
+                <h1 className="app-recent-title">Search Results</h1>
                 <div className="app-recent-container">
                     {
-                        app_list.filter(e => e.service_name.startsWith(text_content))
+                        element_list_placeholder(
+                            app_list.filter(e => e.service_name.startsWith(text_content))
                                 .map(e => {
                                     return <ServiceCard img={e.img} service_name={e.service_name} />
-                                })
+                                }),
+                            <InformationCard
+                                information_key={<>No Results</>}
+                                information_value={<></>}
+                            />
+                        )
                     }
 
                 </div>
