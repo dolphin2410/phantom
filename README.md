@@ -44,4 +44,4 @@ Contributions are welcome!
 3. Submit a pull request with improvements or examples
 
 ## License
-This project is licensed under GNU Public License v3.  
+This project is licensed under GNU General Public License v3.0.  
