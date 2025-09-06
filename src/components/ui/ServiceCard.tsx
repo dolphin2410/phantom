@@ -13,14 +13,14 @@ function ServiceCard({ img, service_name } : ServiceCardProps) {
     const [hidden_style, set_hidden_style] = useState<{ [key: string]: [string, string] }>({})
 
     useEffect(() => {
-        if (window.innerWidth < 600) {
+        if (window.innerWidth <= 600) {
             set_hidden_style(prev => ({ ...prev, height: ["180px", "70px"] }))
         } else {
             set_hidden_style(prev => ({ ...prev, height: ["120px", "70px"] }))
         }
 
         window.addEventListener("resize", () => {
-            if (window.innerWidth < 600) {
+            if (window.innerWidth <= 600) {
                 set_hidden_style(prev => ({ ...prev, height: ["180px", "70px"] }))
             } else {
                 set_hidden_style(prev => ({ ...prev, height: ["120px", "70px"] }))

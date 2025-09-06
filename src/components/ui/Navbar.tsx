@@ -21,13 +21,13 @@ function Navbar() {
     })
 
     useEffect(() => {
-        if (window.innerWidth < 800) {
+        if (window.innerWidth <= 800) {
             document.querySelector("#root")!!.classList.add("root-collapsed")
             document.querySelector(".navbar")!!.classList.remove("navbar-activated")
         }
 
         window.addEventListener("resize", () => {
-            if (window.innerWidth < 800) {
+            if (window.innerWidth <= 800) {
                 document.querySelector("#root")!!.classList.add("root-collapsed")
                 document.querySelector(".navbar")!!.classList.remove("navbar-activated")
             }
