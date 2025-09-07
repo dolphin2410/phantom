@@ -1,0 +1,26 @@
+.modal {
+    position: fixed;
+    width: calc(70vw - 60px);
+    height: 70vh;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 1px 3px 0 #00000034;
+    background-color: #e9ecf9;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+}
+
+.modal-container {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+}
+
+.modal-input { 
+    height: fit-content !important;
+    align-self: center;
+}

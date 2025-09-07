@@ -3,6 +3,7 @@ import { get_applications } from "../../api/appliction";
 import ServiceCard from "../ui/ServiceCard";
 import { element_list_placeholder } from "../../util/phantom_utils";
 import InformationCard from "../ui/InformationCard";
+import Modal from "../ui/Modal";
 
 function MainApplication() {
     const [text_content, set_text_content] = useState("")
@@ -56,6 +57,7 @@ function MainApplication() {
                     />
                 </div>
             </div>
+            <Modal />
         </div>
     );
 }
