@@ -10,10 +10,11 @@ type BaseCardProps = {
     content: ReactElement,
     hidden_content?: ReactElement,
     style_config?: StyleConfigType,
+    on_click?: () => void,
     [props: string]: any
 }
 
-function BaseCard({ img, content, hidden_content = <></>, style_config = {  }, ...props } : BaseCardProps) {
+function BaseCard({ img, content, hidden_content = <></>, style_config = {  }, on_click = () => {}, ...props } : BaseCardProps) {
     const card_ref = useRef<HTMLDivElement | null>(null)
 
     const regenerate_card_style = (card_element: HTMLElement) => {
@@ -49,6 +50,8 @@ function BaseCard({ img, content, hidden_content = <></>, style_config = {  }, .
     const card_click_handler = (e: React.MouseEvent) => {
         const target = e.target!! as HTMLElement
         const current_target = e.currentTarget!! as HTMLElement
+
+        on_click()
 
         if (is_valid_target(target, current_target)) {
             current_target.classList.toggle("card-expanded")

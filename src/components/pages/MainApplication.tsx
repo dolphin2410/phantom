@@ -12,6 +12,10 @@ function MainApplication() {
         set_text_content((e.target as HTMLInputElement).value)
     }
 
+    const add_service_handler = () => {
+        // TODO implement
+    }
+
     return (
         <div className="app ui-container">
             <div className="app-searchbar-container">
@@ -32,7 +36,6 @@ function MainApplication() {
                             />
                         )
                     }
-
                 </div>
                 <h1 className="app-recent-title">All Applications</h1>
                 <div className="app-recent-container">
@@ -41,6 +44,16 @@ function MainApplication() {
                             return <ServiceCard img={e.img} service_name={e.service_name} />
                         })
                     }
+                    <InformationCard 
+                        information_key={(
+                            <>Add New Service</>
+                        )} 
+                        information_value={(
+                            <></>
+                        )}
+                        data-information-reversed
+                        on_click={add_service_handler}
+                    />
                 </div>
             </div>
         </div>
