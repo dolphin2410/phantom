@@ -62,11 +62,13 @@
 
 .card[data-settings-card] > .card-hidden > .card-settings-key[data-expand] {
     grid-column: 1 / span 2;
+    height: 100%;
 }
 
 .card[data-settings-card] > .card-hidden > .card-settings-key {
     display: flex;
     justify-content: left;
+    height: 100%;
 }
 
 .card[data-settings-card] > .card-hidden > .card-settings-value {

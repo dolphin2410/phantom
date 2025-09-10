@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { get_applications } from "../../api/appliction";
-import ServiceCard from "../ui/ServiceCard";
-import { element_list_placeholder } from "../../util/phantom_utils";
-import InformationCard from "../ui/InformationCard";
-import Modal from "../ui/Modal";
+import ServiceCard from "../ui/cards/ServiceCard";
+import { element_list_placeholder, run_if_exists } from "../../util/phantom_utils";
+import InformationCard from "../ui/cards/InformationCard";
+import AddServiceModal, { ServiceModalReference } from "../ui/modals/AddServiceModal";
 
 function MainApplication() {
     const [text_content, set_text_content] = useState("")
+    const [navigate_token, set_navigate_token] = useState(0)
+
     const app_list = get_applications()
+    const service_modal_ref = useRef<ServiceModalReference | null>(null)
 
     const input_change_handler = (e: React.ChangeEvent) => {
         set_text_content((e.target as HTMLInputElement).value)
     }
 
     const add_service_handler = () => {
-        // TODO implement
+        run_if_exists(service_modal_ref, _service_modal_ref => {
+            _service_modal_ref.modal_toggle()
+        })
     }
 
     return (
@@ -57,7 +62,7 @@ function MainApplication() {
                     />
                 </div>
             </div>
-            <Modal />
+            <AddServiceModal reload_ui={() => set_navigate_token(navigate_token + 1)} ref={service_modal_ref} />
         </div>
     );
 }

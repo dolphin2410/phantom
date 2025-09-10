@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import BaseCard from "./BaseCard"
-import { run_if_exists } from "../../util/phantom_utils"
-import { get_latest_hash, mint_password } from "../../api/hash_history"
+import { run_if_exists } from "../../../util/phantom_utils"
+import { get_latest_hash, mint_password } from "../../../api/hash_history"
 
 type ServiceCardProps = {
     img: string,
@@ -51,7 +51,7 @@ function ServiceCard({ img, service_name } : ServiceCardProps) {
             hidden_content={(
                 <>
                     <input type="text" className="card-input" ref={password_input_ref} placeholder="Original Password" />
-                    <input type="button" className="card-btn" onClick={mint_password_handler} value="Mint" />
+                    <input type="button" className="card-btn card-btn-smart" onClick={mint_password_handler} value="Mint" />
                 </>
             )} />
     )

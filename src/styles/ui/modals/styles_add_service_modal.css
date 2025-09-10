@@ -1,0 +1,45 @@
+.modal[data-add-service-modal] .modal-container {
+    display: grid;
+    grid-template-columns: 60px 20px 1fr;
+    width: 100%;
+    max-width: 580px;
+    justify-self: center;
+}
+
+.modal[data-add-service-modal] > .modal-container > * {
+    justify-self: center;
+    max-width: 500px;
+}
+
+.modal[data-add-service-modal] > .modal-container > img {
+    align-self: center;
+    grid-column: 1;
+    width: 60px;
+    height: 60px;
+}
+
+div[data-add-service-input-group] {
+    grid-column: 3;
+    width: calc(100% - 20px);
+    display: flex;
+    justify-content: space-between;
+}
+
+div[data-add-service-input-group] > input[data-service-input] {
+    background-color: #f3f4f6 !important;
+}
+
+div[data-add-service-input-group] > input[data-service-btn] {
+    width: 60px;
+}
+
+@media screen and (max-width: 600px) {
+    .modal[data-add-service-modal] .modal-container {
+        grid-template-columns: 60px 20px 1fr;
+    }
+
+    div[data-add-service-input-group] {
+        flex-direction: column;
+        height: 90px;
+    }
+}

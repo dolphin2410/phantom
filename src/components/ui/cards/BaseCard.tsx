@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useRef } from "react"
-import chevron_icon from "../../assets/up.svg"
+import chevron_icon from "../../../assets/up.svg"
 
 type StyleConfigType = {
     [key: string]: [string, string]

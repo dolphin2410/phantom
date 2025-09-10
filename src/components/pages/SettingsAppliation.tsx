@@ -1,5 +1,5 @@
-import InformationCard from "../ui/InformationCard";
-import SettingsCard, { Configuration, configuration_from_text } from "../ui/SettingsCard";
+import InformationCard from "../ui/cards/InformationCard";
+import SettingsCard, { Configuration, configuration_from_text } from "../ui/cards/SettingsCard";
 import Dropdown from "../ui/Dropdown";
 import { create_hash_history, get_hash_history, get_latest_hash } from "../../api/hash_history.ts"
 import { get_applications } from "../../api/appliction.ts";
@@ -37,9 +37,9 @@ function SettingsApplication() {
         },
         {
             key: (
-                <div className="card-group">
+                <div className="card-group" data-newline-on-smallscreen>
                     <input type="text" className="card-input card-nointeraction" placeholder="Original Password" />
-                    <input type="button" className="card-btn card-nointeraction" value="Mint" />
+                    <input type="button" className="card-btn card-btn-smart card-nointeraction" value="Mint" />
                 </div>
             ),
             value: null
@@ -70,7 +70,16 @@ function SettingsApplication() {
                         <>Revoke Current Hash</>
                     )}
                     information_value={(
-                        <><input type="button" value="Revoke" onClick={revoke_hash} className="card-btn" /></>
+                        <><input type="button" value="Revoke" onClick={revoke_hash} className="card-btn card-btn-smart" /></>
+                    )}
+                />
+
+                <InformationCard
+                    information_key={(
+                        <>Sync With Account</>
+                    )}
+                    information_value={(
+                        <><input type="button" value="Sync" onClick={revoke_hash} className="card-btn card-btn-smart" /></>
                     )}
                 />
 

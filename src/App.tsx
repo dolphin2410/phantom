@@ -7,6 +7,7 @@ import "./styles/styles_card.css"
 import "./styles/styles_dropdown.css"
 import "./styles/styles_app.css"
 import "./styles/styles_settings.css"
+import { Auth0Provider } from "@auth0/auth0-react";
 
 type AppProps = {
     child: ReactElement
@@ -14,10 +15,19 @@ type AppProps = {
 
 function App({ child } : AppProps) {
     return (
-        <>
-            <Navbar />
-            {child}
-        </>
+        <Auth0Provider
+            domain="dev-dujiupliiaptbdsr.us.auth0.com"
+            clientId="RwWoIRCDPqJ63V7StZxqI0ugfHpncdeg"
+            authorizationParams={{
+                redirect_uri: window.location.origin,
+                audience: "https://audience.sujebi.tech"
+            }}
+            children={(
+                <>
+                    <Navbar />
+                    {child}
+                </>
+            )} />
     )
 }
 

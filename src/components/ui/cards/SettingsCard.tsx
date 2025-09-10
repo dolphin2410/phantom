@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { ReactElement, useEffect, useState } from "react"
 import BaseCard from "./BaseCard"
 
 export type Configuration = {
@@ -26,15 +26,30 @@ type SettingsCardProps = {
 }
 
 function SettingsCard({ configuration_name, configuration_data, trimmed_config } : SettingsCardProps) {
+    const [hidden_style, set_hidden_style] = useState<{ [key: string]: [string, string] }>({})
+
+    useEffect(() => {
+        const n_expandable = configuration_data.filter(e => (e.key.props as any)["data-newline-on-smallscreen"] !== undefined).length
+
+        if (window.innerWidth <= 600) {
+            set_hidden_style(prev => ({ ...prev, height: [trimmed_config ? `${40 * (configuration_data.length + n_expandable) + 60}px` : `${60 * (configuration_data.length + n_expandable) + 60}px`, "70px"] }))
+        } else {
+            set_hidden_style(prev => ({ ...prev, height: [trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`, "70px"] }))
+        }
+    
+        window.addEventListener("resize", () => {
+            if (window.innerWidth <= 600) {
+                set_hidden_style(prev => ({ ...prev, height: [trimmed_config ? `${40 * (configuration_data.length + n_expandable) + 60}px` : `${60 * (configuration_data.length + n_expandable) + 60}px`, "70px"] }))
+            } else {
+                set_hidden_style(prev => ({ ...prev, height: [trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`, "70px"] }))
+            }
+        })
+    }, [])
+    
     return (
         <BaseCard 
             data-settings-card
-            style_config={{ 
-                height: [
-                    trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`,
-                    "70px"
-                ]
-             }}
+            style_config={hidden_style}
             content={(
                 <>{configuration_name}</>
             )} 
