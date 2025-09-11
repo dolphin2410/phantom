@@ -3,9 +3,12 @@ import SettingsCard, { Configuration, configuration_from_text } from "../ui/card
 import Dropdown from "../ui/Dropdown";
 import { create_hash_history, get_hash_history, get_latest_hash } from "../../api/hash_history.ts"
 import { get_applications } from "../../api/appliction.ts";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import SyncModal, { SyncModalReference } from "../ui/modals/SyncModal.tsx";
+import { run_if_exists } from "../../util/phantom_utils.ts";
 
-function SettingsApplication() {    
+function SettingsApplication() {
+    const sync_modal_ref = useRef<SyncModalReference | null>(null)
     const hash_history = get_hash_history()
     const history_configuration = configuration_from_text(hash_history.map(e => [e.hash, e.created_date]))
 
@@ -23,6 +26,12 @@ function SettingsApplication() {
         } else {
             set_last_hash_update(get_latest_hash().created_date)
         }
+    }
+
+    const sync_app = () => {
+        run_if_exists(sync_modal_ref, _sync_modal_ref => {
+            _sync_modal_ref.modal_toggle()
+        })
     }
 
     const password_recovery_config: Configuration[] = [
@@ -79,7 +88,7 @@ function SettingsApplication() {
                         <>Sync With Account</>
                     )}
                     information_value={(
-                        <><input type="button" value="Sync" onClick={revoke_hash} className="card-btn card-btn-smart" /></>
+                        <><input type="button" value="Sync" onClick={sync_app} className="card-btn card-btn-smart" /></>
                     )}
                 />
 
@@ -89,6 +98,7 @@ function SettingsApplication() {
                     configuration_data={password_recovery_config}
                 />
             </div>
+            <SyncModal ref={sync_modal_ref} reload_ui={() => alert("synced with database")} />
         </div>
     );
 }

@@ -5,10 +5,11 @@ import { get_latest_hash, mint_password } from "../../../api/hash_history"
 
 type ServiceCardProps = {
     img: string,
-    service_name: string
+    service_name: string,
+    [key: string]: any
 }
 
-function ServiceCard({ img, service_name } : ServiceCardProps) {
+function ServiceCard({ img, service_name, ...props } : ServiceCardProps) {
     const password_input_ref =  useRef<HTMLInputElement | null>(null)
     const [hidden_style, set_hidden_style] = useState<{ [key: string]: [string, string] }>({})
 
@@ -53,7 +54,8 @@ function ServiceCard({ img, service_name } : ServiceCardProps) {
                     <input type="text" className="card-input" ref={password_input_ref} placeholder="Original Password" />
                     <input type="button" className="card-btn card-btn-smart" onClick={mint_password_handler} value="Mint" />
                 </>
-            )} />
+            )}
+            {...props} />
     )
 }
 

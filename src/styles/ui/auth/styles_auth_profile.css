@@ -1,0 +1,12 @@
+.auth-profile-container, .auth-sync-container {
+    display: flex;
+    justify-content: space-around;
+    justify-self: center;
+    width: 100%;
+    max-width: 580px;
+}
+
+.auth-user-id {
+    height: fit-content;
+    align-self: center;
+}
