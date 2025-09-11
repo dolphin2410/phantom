@@ -12,7 +12,7 @@ One Key for One Lock
 
 ## Overview
 Many users reuse passwords across multiple services, which is a major security risk. 
-This project aims to assist users to use one unique password per service by minting(salting and hashing) their password.
+This project aims to assist users to use one unique password per service by minting(salting and hashing) them.
 
 ## Features
 - Add custom services
