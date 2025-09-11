@@ -118,6 +118,10 @@
         width: calc(100% - 20px) !important;
         display: block;
     }
+
+    .card-group[data-aligned-around] {
+        justify-content: space-between;
+    }
 }
 
 .card-btn:hover {

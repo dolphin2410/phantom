@@ -76,6 +76,11 @@
     justify-content: right;
 }
 
+.card-settings-key, .card-settings-value {
+    height: fit-content;
+    align-items: center;
+}
+
 .card-settings-key > *, .card-settings-value {
     width: 100%;
 }
