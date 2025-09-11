@@ -6,9 +6,10 @@ import AddServiceModal, { ServiceModalReference } from "../ui/modals/AddServiceM
 import { Application } from "../../types/phantom_types";
 import { fetch_applications_list } from "../../api/authentication";
 import { useAuth0 } from "@auth0/auth0-react";
+import RequireLoginModal, { RequireLoginReference } from "../ui/modals/RequireLoginModal";
 
 function MainApplication() {
-    const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, isLoading } = useAuth0()
+    const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0()
     
     const [text_content, set_text_content] = useState("")
     const [navigate_token, set_navigate_token] = useState(0)
@@ -16,6 +17,7 @@ function MainApplication() {
     const [jwt_auth_token, set_jwt_auth_token] = useState("")
 
     const service_modal_ref = useRef<ServiceModalReference | null>(null)
+    const login_modal_ref = useRef<RequireLoginReference | null>(null)
 
     useEffect(() => {
         (async () => {
@@ -37,12 +39,15 @@ function MainApplication() {
         getToken();
     }, [isAuthenticated, getAccessTokenSilently]);
 
-    if (isLoading) return <div>Loading...</div>;
+    useEffect(() => {
+        if (!isAuthenticated) {
+            run_if_exists(login_modal_ref, e => {
+                e.modal_on()
+            })
+        }
+    }, [isLoading])
 
-    if (!isAuthenticated) {
-        loginWithRedirect()
-        return <div>redirecting...</div>
-    }
+    if (isLoading) return <div>Loading...</div>;
 
     const input_change_handler = (e: React.ChangeEvent) => {
         set_text_content((e.target as HTMLInputElement).value)
@@ -95,6 +100,7 @@ function MainApplication() {
                 </div>
             </div>
             <AddServiceModal reload_ui={() => set_navigate_token(navigate_token + 1)} ref={service_modal_ref} />
+            <RequireLoginModal reload_ui={() => set_navigate_token(navigate_token + 1)} ref={login_modal_ref} />
         </div>
     );
 }

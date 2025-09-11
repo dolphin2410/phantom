@@ -9,7 +9,8 @@ type ModalProps = {
 }
 
 export interface ModalReference {
-    modal_toggle: () => void
+    modal_toggle: () => void,
+    modal_on: () => void
 }
 
 const Modal = forwardRef<ModalReference, ModalProps>(({ modal_title, children, ...props }, ref) => {
@@ -23,8 +24,17 @@ const Modal = forwardRef<ModalReference, ModalProps>(({ modal_title, children, .
         })
     }
 
+    const modal_on = () => {
+        run_if_exists(modal, e => {
+            e.setAttribute("data-modal-activated", "true")
+            modal_bg.current!!.setAttribute("data-modal-background-activated", "true")
+        })
+    }
+
+
     useImperativeHandle(ref, () => ({
-        modal_toggle
+        modal_toggle,
+        modal_on
     }))
 
     return (
