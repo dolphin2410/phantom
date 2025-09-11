@@ -44,7 +44,7 @@ function SettingsCard({ configuration_name, configuration_data, trimmed_config }
                 set_hidden_style(prev => ({ ...prev, height: [trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`, "70px"] }))
             }
         })
-    }, [])
+    }, [configuration_data])
     
     return (
         <BaseCard 

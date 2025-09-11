@@ -23,7 +23,7 @@ function SettingsApplication() {
             set_app_list(await fetch_applications_list(jwt_auth_token))
             set_last_hash_update(browse_latest_hash(hash_history)?.created_date)
         })()
-    }, [jwt_auth_token])
+    }, [jwt_auth_token, hash_history])
 
     useEffect(() => {
         const getToken = async () => {
@@ -50,6 +50,8 @@ function SettingsApplication() {
     let hash_dropdown_options: string[] = hash_history.map(e => e.hash)
     const lhu = last_hash_update ? last_hash_update : "<Sync to Initialize>"
     const history_configuration = configuration_from_text(hash_history.map(e => [e.hash, e.created_date]))
+
+    console.log(hash_history)
 
     const revoke_hash = async () => {
         const renew_req = await axios.post("/.netlify/functions/renew_hash", "", {
