@@ -3,7 +3,7 @@ import { APIResponse, Application } from "../types/phantom_types";
 import { applist2stringlist, stringlist2applist } from "./appliction";
 
 export async function fetch_applications_list(auth_token: string): Promise<Application[]> {
-    const request = await axios.post("https://illusion-phantom-auth.netlify.app/netlify/functions/get_applications", "", {
+    const request = await axios.post("/netlify/functions/get_applications", "", {
         headers: {
             "Authorization": `Bearer ${auth_token}`
         }
@@ -19,7 +19,7 @@ export async function upload_applications_list(auth_token: string, applications:
     }
 
     const request = await axios.post(
-        "https://illusion-phantom-auth.netlify.app/netlify/functions/sync_applications", 
+        "/netlify/functions/sync_applications", 
         JSON.stringify(request_body), 
         {
             headers: {

@@ -50,7 +50,7 @@ function SettingsApplication() {
     let hash_dropdown_options: string[] = hash_history.map(e => e.hash)
 
     const revoke_hash = async () => {
-        const renew_req = await axios.post("https://illusion-phantom-auth.netlify.app/netlify/functions/renew_hash", "", {
+        const renew_req = await axios.post("/netlify/functions/renew_hash", "", {
             headers: {
                 Authorization: `Bearer ${jwt_auth_token}`
             }
