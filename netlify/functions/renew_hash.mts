@@ -50,28 +50,14 @@ export default async (request: Request, context: Context) => {
   if (latest_cloud_hash == null || new Date(latest_cloud_hash.created_date) < new Date(new_hash.created_date)) {
     await append_list(tokens_ref, new_hash)
     
-    return Response.json(
-      {
+    return Response.json({
         is_success: true,
         payload: "Success"
-      }, 
-      {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTION"
-      }
       });
   }
 
   return Response.json({
     is_success: false,
     payload: "Exceeded max hash quota"
-  }, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "GET, POST, OPTION"
-    }
   });
 };

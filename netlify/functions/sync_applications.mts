@@ -29,11 +29,5 @@ export default async (request: Request, context: Context) => {
   return Response.json({
     is_success: true,
     payload: "success"
-  }, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "GET, POST, OPTION"
-    }
   });
 };

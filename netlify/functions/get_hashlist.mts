@@ -25,11 +25,5 @@ export default async (request: Request, context: Context) => {
   return Response.json({
     is_success: false,
     payload: cloud_applications
-  }, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "GET, POST, OPTION"
-    }
   });
 };
