@@ -1,16 +1,48 @@
-import { useRef, useState } from "react";
-import { get_applications } from "../../api/appliction";
+import { useEffect, useRef, useState } from "react";
 import ServiceCard from "../ui/cards/ServiceCard";
 import { element_list_placeholder, run_if_exists } from "../../util/phantom_utils";
 import InformationCard from "../ui/cards/InformationCard";
 import AddServiceModal, { ServiceModalReference } from "../ui/modals/AddServiceModal";
+import { Application } from "../../types/phantom_types";
+import { fetch_applications_list } from "../../api/authentication";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function MainApplication() {
+    const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, isLoading } = useAuth0()
+    
     const [text_content, set_text_content] = useState("")
     const [navigate_token, set_navigate_token] = useState(0)
+    const [app_list, set_app_list] = useState<Application[]>([])
+    const [jwt_auth_token, set_jwt_auth_token] = useState("")
 
-    const app_list = get_applications()
     const service_modal_ref = useRef<ServiceModalReference | null>(null)
+
+    useEffect(() => {
+        (async () => {
+            set_app_list(await fetch_applications_list(jwt_auth_token))
+        })()
+    }, [navigate_token, jwt_auth_token])
+
+    useEffect(() => {
+        const getToken = async () => {
+            if (isAuthenticated) {
+                try {
+                    const token = await getAccessTokenSilently();
+                    set_jwt_auth_token(token)
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        };
+        getToken();
+    }, [isAuthenticated, getAccessTokenSilently]);
+
+    if (isLoading) return <div>Loading...</div>;
+
+    if (!isAuthenticated) {
+        loginWithRedirect()
+        return <div>redirecting...</div>
+    }
 
     const input_change_handler = (e: React.ChangeEvent) => {
         set_text_content((e.target as HTMLInputElement).value)

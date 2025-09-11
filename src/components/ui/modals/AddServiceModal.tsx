@@ -1,8 +1,9 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import Modal, { ModalReference } from "./Modal";
 import { google_favicon_url, run_if_exists } from "../../../util/phantom_utils";
 import "../../../styles/ui/modals/styles_add_service_modal.css"
-import { add_application } from "../../../api/appliction";
+import { fetch_applications_list, upload_applications_list } from "../../../api/authentication";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type ServiceModalProps = {
     reload_ui: () => void
@@ -13,20 +14,39 @@ export interface ServiceModalReference {
 }
 
 const AddServiceModal = forwardRef<ServiceModalReference, ServiceModalProps>(({ reload_ui }, ref) => {
+    const { getAccessTokenSilently, isAuthenticated } = useAuth0()
+    
     const [service_url, set_service_url] = useState("")
     const service_image = useRef<HTMLImageElement | null>(null)
     const modal_ref = useRef<ModalReference | null>(null)
+    const [jwt_auth_token, set_jwt_auth_token] = useState("")
+
+    useEffect(() => {
+        const getToken = async () => {
+            if (isAuthenticated) {
+                try {
+                    const token = await getAccessTokenSilently();
+                    set_jwt_auth_token(token)
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        };
+        getToken();
+    }, [isAuthenticated, getAccessTokenSilently]);
 
     const on_change_handler = (ev: React.ChangeEvent) => {
         set_service_url((ev.currentTarget as HTMLInputElement).value)
     }
 
     const add_service_handler = () => {
-        run_if_exists(service_image, _service_image => {
-            const res = add_application({
+        run_if_exists(service_image, async _service_image => {
+            const app_list = await fetch_applications_list(jwt_auth_token)
+            app_list.push({
                 service_name: service_url,
                 img: google_favicon_url(service_url)
             })
+            const res = await upload_applications_list(jwt_auth_token, app_list)
 
             if (res) {
                 run_if_exists(modal_ref, _modal_ref => {

@@ -1,41 +1,30 @@
-import { invoke } from "@tauri-apps/api/core"
-import { HashHistory } from "../types/phantom_types"
-import { generate_random_hash } from "../util/math"
-import { load_database } from "./database"
-
-export function create_hash_history(): HashHistory | null {
-    const new_hash = generate_random_hash(10)
-    const curr_time = (new Date()).toISOString().split('T')[0]
-
-    const new_hash_history: HashHistory = {
-        hash: new_hash,
-        created_date: curr_time
-    }
-
-    let db = load_database()
-
-    if (Object.values(db.list_hash_history.filter(e => e.created_date == curr_time)).length) {
-        return null
-    } else {
-        db.list_hash_history.push(new_hash_history)
-        return new_hash_history
-    }
-}
+import { APIResponse, HashHistory } from "../types/phantom_types"
+import { browse_latest_hash } from "../util/phantom_utils"
+import axios from "axios";
 
 export async function mint_password(service_name: string, hash: string, raw_password: string): Promise<string> {
-    return await invoke<string>("mint_password", { 
-        serviceName: service_name,
-        hash,
-        rawPassword: raw_password    
+    const msgBuffer = new TextEncoder().encode(`${service_name}${hash}${raw_password}`);                    
+
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    return hashHex;
+}
+
+export async function get_hash_history(auth_token: string): Promise<HashHistory[]> {
+    const request = await axios.post("https://illusion-phantom-auth.netlify.app/netlify/functions/get_hashlist", "", {
+        headers: {
+            Authorization: `Bearer ${auth_token}`
+        }
     });
+    return (request.data as APIResponse).payload as HashHistory[]
 }
 
-export function get_hash_history(): HashHistory[] {
-    return load_database().list_hash_history
-}
+export async function get_latest_hash(auth_token: string): Promise<HashHistory | null> {
+    const hash_history_list = await get_hash_history(auth_token)
 
-export function get_latest_hash(): HashHistory {
-    const hash_history_list = get_hash_history()
-
-    return hash_history_list[hash_history_list.length - 1]
+    return browse_latest_hash(hash_history_list)
 }

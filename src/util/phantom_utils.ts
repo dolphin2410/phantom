@@ -1,4 +1,5 @@
 import { ReactElement, RefObject } from "react";
+import { HashHistory } from "../types/phantom_types";
 
 export function run_if_exists<T>(ref: RefObject<T | null>, callback: (element: T) => void) {
     if (ref.current) {
@@ -33,4 +34,14 @@ export function element_list_placeholder(element_list: ReactElement[], placehold
 
 export function google_favicon_url(service_url: string): string {
     return `https://www.google.com/s2/favicons?sz=128&domain=${service_url ? service_url : 'q'}`
+}
+
+export const browse_latest_hash = (hash_list: HashHistory[]): HashHistory | null => {
+    let latest_hash: HashHistory | null = null
+    for (const item of hash_list) {
+        if (latest_hash == null || new Date(latest_hash.created_date) < new Date(item.created_date)) {
+            latest_hash = item
+        }
+    }
+    return latest_hash
 }
