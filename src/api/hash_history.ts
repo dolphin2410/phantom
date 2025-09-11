@@ -15,7 +15,7 @@ export async function mint_password(service_name: string, hash: string, raw_pass
 }
 
 export async function get_hash_history(auth_token: string): Promise<HashHistory[]> {
-    const request = await axios.post("/netlify/functions/get_hashlist", "", {
+    const request = await axios.post("/.netlify/functions/get_hashlist", "", {
         headers: {
             Authorization: `Bearer ${auth_token}`
         }
