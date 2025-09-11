@@ -22,10 +22,11 @@ export function configuration_from_text(text_config: [string, string][]): Config
 type SettingsCardProps = {
     configuration_name: string,
     configuration_data: Configuration[],
-    trimmed_config?: boolean
+    trimmed_config?: boolean,
+    fit_align?: boolean
 }
 
-function SettingsCard({ configuration_name, configuration_data, trimmed_config } : SettingsCardProps) {
+function SettingsCard({ configuration_name, configuration_data, trimmed_config, fit_align = false } : SettingsCardProps) {
     const [hidden_style, set_hidden_style] = useState<{ [key: string]: [string, string] }>({})
 
     useEffect(() => {
@@ -59,8 +60,8 @@ function SettingsCard({ configuration_name, configuration_data, trimmed_config }
                         configuration_data.map(({ key, value }: Configuration) => {
                             return value != null ? 
                             <>
-                                <div className="card-settings-key card-interaction">{key}</div>
-                                <div className="card-settings-value card-interaction">{value}</div>
+                                <div className="card-settings-key card-interaction" data-fit-align={fit_align}>{key}</div>
+                                <div className="card-settings-value card-interaction" data-fit-align={fit_align}>{value}</div>
                             </> :
                             <>
                                 <div className="card-settings-key card-interaction" data-expand>{key}</div>

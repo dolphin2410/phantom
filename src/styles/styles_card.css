@@ -120,7 +120,7 @@
     }
 
     .card-group[data-aligned-around] {
-        justify-content: space-between;
+        justify-content: space-between !important;
     }
 }
 
@@ -134,8 +134,12 @@
     align-items: center;
 } 
 
-.card-group[data-newline-on-smallscreen], .card-group[data-aligned-around] {
+.card-group[data-newline-on-smallscreen] {
     justify-content: space-around !important;
+}
+
+.card-group[data-aligned-around] {
+    justify-content: space-around;
 }
 
 .card-group > .dropdown {

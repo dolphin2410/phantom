@@ -76,7 +76,7 @@
     justify-content: right;
 }
 
-.card-settings-key, .card-settings-value {
+.card-settings-key[data-fit-align], .card-settings-value[data-fit-align] {
     height: fit-content;
     align-items: center;
 }

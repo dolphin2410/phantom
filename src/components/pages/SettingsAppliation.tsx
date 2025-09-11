@@ -117,6 +117,7 @@ function SettingsApplication() {
                     configuration_name="History"
                     configuration_data={history_configuration}
                     trimmed_config
+                    fit_align
                 />
 
                 <InformationCard
