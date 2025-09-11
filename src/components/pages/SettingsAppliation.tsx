@@ -13,7 +13,6 @@ function SettingsApplication() {
     const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user, logout, isLoading } = useAuth0()
 
     const [hash_history, set_hash_history] = useState<HashHistory[]>([])
-    const [history_configuration, set_history_configuration] = useState<Configuration[]>([])
     const [last_hash_update, set_last_hash_update] = useState<string | undefined>(browse_latest_hash(hash_history)?.created_date)
     const [jwt_auth_token, set_jwt_auth_token] = useState("")
     const [app_list, set_app_list] = useState<Application[]>([])
@@ -23,7 +22,6 @@ function SettingsApplication() {
             set_hash_history(await get_hash_history(jwt_auth_token))
             set_app_list(await fetch_applications_list(jwt_auth_token))
             set_last_hash_update(browse_latest_hash(hash_history)?.created_date)
-            set_history_configuration(configuration_from_text(hash_history.map(e => [e.hash, e.created_date])))
         })()
     }, [jwt_auth_token])
 
@@ -50,6 +48,8 @@ function SettingsApplication() {
     
     const app_dropdown_options: string[] = app_list.map(e => e.service_name)
     let hash_dropdown_options: string[] = hash_history.map(e => e.hash)
+    const lhu = last_hash_update ? last_hash_update : "<Sync to Initialize>"
+    const history_configuration = configuration_from_text(hash_history.map(e => [e.hash, e.created_date]))
 
     const revoke_hash = async () => {
         const renew_req = await axios.post("/.netlify/functions/renew_hash", "", {
@@ -108,7 +108,7 @@ function SettingsApplication() {
                         <>Last Hash Update</>
                     )}
                     information_value={(
-                        <>{ last_hash_update ? last_hash_update : "<Sync to Initialize>" }</>
+                        <>{ lhu }</>
                     )} />
 
                 <SettingsCard
