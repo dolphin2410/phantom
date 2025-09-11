@@ -15,8 +15,8 @@ Many users reuse passwords across multiple services, which is a major security r
 This project aims to assist users to use one unique password per service by minting(salting and hashing) their password.
 
 ## Features
-- Add custom services (WIP)
-- Revoke hash used to mint passwords
+- Add custom services
+- Revoke hash used in minting passwords
 - Search feature
 
 ## Example
