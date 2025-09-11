@@ -8,7 +8,8 @@ export default async (request: Request, context: Context) => {
   let authResult: VerifyAuth0TokenResult;
   try {
     authResult = await verifyAuth0Token(request);
-  } catch {
+  } catch(e) {
+    console.log(e)
     return new Response("Authorization required", { status: 401 });
   }
 
