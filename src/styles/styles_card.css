@@ -128,9 +128,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+} 
 
-.card-group[data-newline-on-smallscreen] {
+.card-group[data-newline-on-smallscreen], .card-group[data-aligned-around] {
     justify-content: space-around !important;
 }
 
