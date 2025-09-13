@@ -26,6 +26,7 @@ function App({ child } : AppProps) {
                 <>
                     <Navbar />
                     {child}
+                    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
                 </>
             )} />
     )
