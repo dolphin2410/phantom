@@ -1,8 +1,7 @@
 {
-  "short_name": "PHANTOM",
-  "name": "iLLUsIon PHANTOM",
-  "icons": [
-  ],
+  "short_name": "SuJeBI",
+  "name": "SeJong Blockchain Identification",
+  "icons": [],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
