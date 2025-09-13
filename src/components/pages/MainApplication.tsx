@@ -7,6 +7,7 @@ import { Application } from "../../types/phantom_types";
 import { fetch_applications_list } from "../../api/authentication";
 import { useAuth0 } from "@auth0/auth0-react";
 import RequireLoginModal, { RequireLoginReference } from "../ui/modals/RequireLoginModal";
+import KakaoAD from "../ui/KakaoAD";
 
 function MainApplication() {
     const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0()
@@ -99,6 +100,7 @@ function MainApplication() {
                     />
                 </div>
             </div>
+            <KakaoAD />
             <AddServiceModal reload_ui={() => set_navigate_token(navigate_token + 1)} ref={service_modal_ref} />
             <RequireLoginModal reload_ui={() => set_navigate_token(navigate_token + 1)} ref={login_modal_ref} />
         </div>

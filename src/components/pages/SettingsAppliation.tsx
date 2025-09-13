@@ -8,6 +8,7 @@ import axios from "axios";
 import { APIResponse, Application, HashHistory } from "../../types/phantom_types.ts";
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetch_applications_list } from "../../api/authentication.ts";
+import KakaoAD from "../ui/KakaoAD.tsx";
 
 function SettingsApplication() {
     const { getAccessTokenSilently, isAuthenticated, loginWithRedirect, user, logout, isLoading } = useAuth0()
@@ -153,6 +154,7 @@ function SettingsApplication() {
                     configuration_data={password_recovery_config}
                 />
             </div>
+            <KakaoAD />
         </div>
     );
 }
