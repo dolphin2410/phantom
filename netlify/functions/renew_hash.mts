@@ -24,7 +24,7 @@ const generate_new_hash = () => {
 const browse_latest_hash = (hash_list: HashHistory[]): HashHistory | null => {
     let latest_hash: HashHistory | null = null
     for (const item of hash_list) {
-        if (latest_hash == null || new Date(latest_hash.created_date) < new Date(item.created_date)) {
+        if (!latest_hash || new Date(latest_hash.created_date) < new Date(item.created_date)) {
             latest_hash = item
         }
     }
@@ -47,7 +47,7 @@ export default async (request: Request, context: Context) => {
 
   const new_hash = generate_new_hash()
 
-  if (latest_cloud_hash == null || new Date(latest_cloud_hash.created_date) < new Date(new_hash.created_date)) {
+  if (!latest_cloud_hash || new Date(latest_cloud_hash.created_date) < new Date(new_hash.created_date)) {
     await append_list(tokens_ref, new_hash)
     
     return Response.json({

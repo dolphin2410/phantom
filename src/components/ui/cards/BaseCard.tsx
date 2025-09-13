@@ -61,8 +61,8 @@ function BaseCard({ img, content, hidden_content = <></>, style_config = {  }, o
 
     return (
         <div className="card" ref={card_ref} onClick={card_click_handler} {...props}>
-            { img ? <img className="card-img" src={img} /> : <></> }
-            <img className="card-chevron" src={chevron_icon} />
+            { img ? <img alt="" className="card-img" src={img} /> : <></> }
+            <img className="card-chevron" alt="" src={chevron_icon} />
             <span className="card-content">{content}</span>
             <div className="card-hidden">
                 {hidden_content}

@@ -40,7 +40,6 @@ export const get_as_list = async (reference: DatabaseReference) => {
     const snapshot = await get(reference);
     if (snapshot.exists()) {
         const dataObj = snapshot.val()
-        console.log(dataObj)
         return Object.entries(dataObj).map(([id, value]) => value)
     } else {
         return []

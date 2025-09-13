@@ -45,7 +45,7 @@ function MainApplication() {
                 e.modal_on()
             })
         }
-    }, [isLoading])
+    }, [isLoading, isAuthenticated])
 
     if (isLoading) return <div>Loading...</div>;
 
@@ -71,7 +71,7 @@ function MainApplication() {
                         element_list_placeholder(
                             app_list.filter(e => e.service_name.startsWith(text_content))
                                 .map(e => {
-                                    return <ServiceCard img={e.img} service_name={e.service_name} />
+                                    return <ServiceCard jwt_auth_token={jwt_auth_token} img={e.img} service_name={e.service_name} />
                                 }),
                             <InformationCard
                                 information_key={<>No Results</>}
@@ -84,7 +84,7 @@ function MainApplication() {
                 <div className="app-recent-container">
                     {
                         app_list.map(e => {
-                            return <ServiceCard img={e.img} service_name={e.service_name} />
+                            return <ServiceCard jwt_auth_token={jwt_auth_token} img={e.img} service_name={e.service_name} />
                         })
                     }
                     <InformationCard 

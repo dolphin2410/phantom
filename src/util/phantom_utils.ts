@@ -8,7 +8,7 @@ export function run_if_exists<T>(ref: RefObject<T | null>, callback: (element: T
 }
 
 export function element_list_placeholder(element_list: ReactElement[], placeholder: ReactElement) {
-    if (element_list.length == 0) {
+    if (element_list.length === 0) {
         return placeholder
     }
 
@@ -39,7 +39,7 @@ export function google_favicon_url(service_url: string): string {
 export const browse_latest_hash = (hash_list: HashHistory[]): HashHistory | null => {
     let latest_hash: HashHistory | null = null
     for (const item of hash_list) {
-        if (latest_hash == null || new Date(latest_hash.created_date) < new Date(item.created_date)) {
+        if (!latest_hash || new Date(latest_hash.created_date) < new Date(item.created_date)) {
             latest_hash = item
         }
     }

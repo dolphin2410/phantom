@@ -1,12 +1,16 @@
-import { useEffect, useRef } from "react"
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import { run_if_exists } from "../../util/phantom_utils"
+
+export interface DropdownReference {
+    dropdown_value: () => string | null
+}
 
 type DropdownProps = {
     dropdown_prompt: string,
     dropdown_items: string[]
 }
 
-function Dropdown({ dropdown_prompt, dropdown_items }: DropdownProps) {
+const Dropdown = forwardRef<DropdownReference, DropdownProps>(({ dropdown_prompt, dropdown_items }, ref) => {
     const dropdown_ref = useRef<HTMLDivElement | null>(null)
 
     const dropdown_click_handler = () => {
@@ -34,6 +38,20 @@ function Dropdown({ dropdown_prompt, dropdown_items }: DropdownProps) {
         })
     }, [])
 
+    useImperativeHandle(ref, () => ({
+        dropdown_value: () => {
+            let to_return = null
+
+            run_if_exists(dropdown_ref, dropdown_element => {
+                const toggle = dropdown_element.querySelector(".dropdown-toggle")!!
+
+                to_return = toggle.textContent === dropdown_prompt ? null : toggle.textContent
+            })
+
+            return to_return
+        }
+    }))
+
     return (
         <div className="dropdown" ref={dropdown_ref}>
             <div className="dropdown-toggle" onClick={dropdown_click_handler}>{dropdown_prompt}</div>
@@ -46,6 +64,6 @@ function Dropdown({ dropdown_prompt, dropdown_items }: DropdownProps) {
             </ul>
         </div>
     )
-}
+})
 
 export default Dropdown

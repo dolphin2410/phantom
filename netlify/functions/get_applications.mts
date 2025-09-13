@@ -9,7 +9,6 @@ export default async (request: Request, context: Context) => {
   try {
     authResult = await verifyAuth0Token(request);
   } catch(e) {
-    console.log(e)
     return new Response("Authorization required", { status: 401 });
   }
 

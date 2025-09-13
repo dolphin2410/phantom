@@ -6,10 +6,11 @@ import { get_latest_hash, mint_password } from "../../../api/hash_history"
 type ServiceCardProps = {
     img: string,
     service_name: string,
+    jwt_auth_token: string,
     [key: string]: any
 }
 
-function ServiceCard({ img, service_name, ...props } : ServiceCardProps) {
+function ServiceCard({ img, service_name, jwt_auth_token, ...props } : ServiceCardProps) {
     const password_input_ref =  useRef<HTMLInputElement | null>(null)
     const [hidden_style, set_hidden_style] = useState<{ [key: string]: [string, string] }>({})
 
@@ -30,9 +31,15 @@ function ServiceCard({ img, service_name, ...props } : ServiceCardProps) {
     }, [])
 
     const mint_password_handler = () => {
-        run_if_exists(password_input_ref, input_element => {
-            const latest_hash = get_latest_hash()
-            const minted_password_promise = mint_password(service_name, latest_hash.hash, input_element.value)
+        run_if_exists(password_input_ref, async input_element => {
+            const latest_hash = await get_latest_hash(jwt_auth_token)
+
+            if (!latest_hash) {
+                alert("Something went wrong. Please contact the admininstrator. Error Code: HASH_REVOKE_FAILED")
+                return
+            }
+
+            const minted_password_promise = mint_password(service_name, latest_hash!!.hash, input_element.value)
             
             minted_password_promise.then(minted_password => {
                 navigator.clipboard.writeText(minted_password).then(() => {

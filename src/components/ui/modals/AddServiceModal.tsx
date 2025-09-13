@@ -69,7 +69,7 @@ const AddServiceModal = forwardRef<ServiceModalReference, ServiceModalProps>(({ 
 
     return (
         <Modal modal_title="Add New Service" ref={modal_ref} data-add-service-modal>
-            <img ref={service_image} src={google_favicon_url(service_url)} data-add-service-img />
+            <img ref={service_image} alt="" src={google_favicon_url(service_url)} data-add-service-img />
             <div data-add-service-input-group>
                 <input type="text" onChange={on_change_handler} placeholder="Service Domain - google.com" className="modal-input card-input" data-service-input />
                 <input type="button" className="card-btn modal-input" data-service-btn value="Add" onClick={add_service_handler} />

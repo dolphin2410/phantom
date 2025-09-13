@@ -45,7 +45,7 @@ function SettingsCard({ configuration_name, configuration_data, trimmed_config, 
                 set_hidden_style(prev => ({ ...prev, height: [trimmed_config ? `${40 * configuration_data.length + 60}px` : `${60 * configuration_data.length + 60}px`, "70px"] }))
             }
         })
-    }, [configuration_data])
+    }, [configuration_data, trimmed_config])
     
     return (
         <BaseCard 
@@ -58,7 +58,7 @@ function SettingsCard({ configuration_name, configuration_data, trimmed_config, 
                 <>
                     {
                         configuration_data.map(({ key, value }: Configuration) => {
-                            return value != null ? 
+                            return value ? 
                             <>
                                 <div className="card-settings-key card-interaction" data-fit-align={fit_align}>{key}</div>
                                 <div className="card-settings-value card-interaction" data-fit-align={fit_align}>{value}</div>
