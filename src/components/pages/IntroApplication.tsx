@@ -19,11 +19,11 @@ function IntroApplication() {
                     <img src={app_logo} width={150} height={150} />
                 </div>
                 <div className="intro-container">
-                    <h2 className="intro-subtitle">One Key for One Lock</h2>
+                    <h2 className="intro-subtitle intro-margin">One Key for One Lock</h2>
                     <p className="intro-maintext">Many users reuse passwords across multiple services, which is a major security risk. PHANTOM <b>salts</b> passwords per service using hashes!</p>
                 </div>
                 <div className="intro-container">
-                    <h2 className="intro-subtitle">What is salting?</h2>
+                    <h2 className="intro-subtitle intro-margin">What is salting?</h2>
                     <p className="intro-maintext">
                         Google provides <b>"recommend me a strong password"</b> feature, which generates a random series of alphabets and claims it a <b>password</b>. However, random passwords are ridiculous.
                         Although chrome saves and syncs them automatically, you don't have control of your own passwords when put outside of the box.
@@ -97,10 +97,13 @@ function IntroApplication() {
                         </table>
                     </p>
                 </div>
-                <div className="intro-container">
-                    <h2 className="intro-subtitle">Quick Start</h2>
-                    <p className="intro-maintext"><button className="card-btn" onClick={login_handler}><h3>Login</h3></button></p>
+                <br />
+                <br />
+                <div className="intro-container intro-center">
+                    <button className="card-btn" onClick={login_handler}><h2 className="intro-subtitle">Start PHANTOM</h2></button>
                 </div>
+                <br />
+                <br />
             </div>
             <KakaoAD />
         </div>
