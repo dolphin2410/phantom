@@ -1,0 +1,26 @@
+.intro-title-main {
+    grid-row: 1;
+    display: inline-block;
+    height: fit-content;
+    font-size: 1.8em;
+    width: 80%;
+    align-self: end;
+    justify-self: center;
+}
+
+.intro-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.intro-maintext {
+    font-size: 1.2rem;
+}
+
+.intro-container {
+    margin-bottom: 30px;
+}
+
+.intro-center {
+    text-align: center;
+}
