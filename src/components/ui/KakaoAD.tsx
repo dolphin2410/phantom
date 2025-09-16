@@ -17,6 +17,7 @@ function KakaoAD() {
             data-ad-unit = "DAN-vlR1oVCYwaQ3rZ5i"
             data-ad-width = "300"
             data-ad-height = "250"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
     )
 }
