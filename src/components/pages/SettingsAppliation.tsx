@@ -52,7 +52,7 @@ function SettingsApplication() {
     
     const app_dropdown_options: string[] = app_list.map(e => e.service_name)
     let hash_dropdown_options: string[] = hash_history.map(e => e.hash)
-    const lhu = last_hash_update ? last_hash_update : "<Sync to Initialize>"
+    const lhu = last_hash_update ? last_hash_update : "Loading..."
     const history_configuration = configuration_from_text(hash_history.map(e => [e.hash, e.created_date]))
 
     const revoke_hash = async () => {
