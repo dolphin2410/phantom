@@ -34,67 +34,71 @@ function IntroApplication() {
                         one-click and all your passwords will be minted again.
                         <br />
                         <br />
-                        <table className="styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Service</th>
-                                    <th>Password</th>
-                                    <th>Key</th>
-                                    <th>Minted Password</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>github.com</td>
-                                    <td>ilovesmurfs0123&</td>
-                                    <td>ab3f44d</td>
-                                    <td>1b716b258d55910e</td>
-                                </tr>
-                                <tr>
-                                    <td>google.com</td>
-                                    <td>ilovesmurfs0123&</td>
-                                    <td>ab3f44d</td>
-                                    <td>f9261ca57af041f4</td>
-                                </tr>
-                                <tr>
-                                    <td>instagram.com</td>
-                                    <td>ilovesmurfs0123&</td>
-                                    <td>ab3f44d</td>
-                                    <td>ad1a1c210d5a3005</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div className="styled-table-container">
+                            <table className="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Password</th>
+                                        <th>Key</th>
+                                        <th>Minted Password</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>github.com</td>
+                                        <td>ilovesmurfs0123&</td>
+                                        <td>ab3f44d</td>
+                                        <td>1b716b258d55910e</td>
+                                    </tr>
+                                    <tr>
+                                        <td>google.com</td>
+                                        <td>ilovesmurfs0123&</td>
+                                        <td>ab3f44d</td>
+                                        <td>f9261ca57af041f4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>instagram.com</td>
+                                        <td>ilovesmurfs0123&</td>
+                                        <td>ab3f44d</td>
+                                        <td>ad1a1c210d5a3005</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                        <table className="styled-table">
-                            <thead>
-                                <tr>
-                                    <th>Service</th>
-                                    <th>Password</th>
-                                    <th>Key</th>
-                                    <th>Minted Password</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>github.com</td>
-                                    <td>ilovesmurfs0123&</td>
-                                    <td>ff302de</td>
-                                    <td>56ccdf3cb20edabf</td>
-                                </tr>
-                                <tr>
-                                    <td>google.com</td>
-                                    <td>ilovesmurfs0123&</td>
-                                    <td>ff302de</td>
-                                    <td>98f04fe294a6b0f5</td>
-                                </tr>
-                                <tr>
-                                    <td>instagram.com</td>
-                                    <td>ilovesmurfs0123&</td>
-                                    <td>ff302de</td>
-                                    <td>cad42415e5060574</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div className="styled-table-container">
+                            <table className="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Password</th>
+                                        <th>Key</th>
+                                        <th>Minted Password</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>github.com</td>
+                                        <td>ilovesmurfs0123&</td>
+                                        <td>ff302de</td>
+                                        <td>56ccdf3cb20edabf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>google.com</td>
+                                        <td>ilovesmurfs0123&</td>
+                                        <td>ff302de</td>
+                                        <td>98f04fe294a6b0f5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>instagram.com</td>
+                                        <td>ilovesmurfs0123&</td>
+                                        <td>ff302de</td>
+                                        <td>cad42415e5060574</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </p>
                 </div>
                 <br />

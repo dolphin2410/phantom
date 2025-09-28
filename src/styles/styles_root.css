@@ -94,7 +94,12 @@ input:focus {
     
     .ui-container {
         grid-column: 1;
+        max-width: 100vw !important;
         /* min-width: 450px !important; */
+    }
+
+    .ui-container > * {
+        max-width: 100vw !important;
     }
 
     /* .navbar-trigger {

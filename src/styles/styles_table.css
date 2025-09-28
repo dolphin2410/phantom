@@ -2,14 +2,18 @@
 * https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l
 */
 
+.styled-table-container {
+    width: 100%;
+    overflow-x: scroll;
+}
+
 .styled-table {
     border-collapse: collapse;
     margin: 25px 0;
+    width: 100%;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    justify-self: center;
 }
 
 .styled-table thead tr {
